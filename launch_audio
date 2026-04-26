@@ -1,0 +1,3 @@
+#!/bin/bash
+
+exec launch_tui wiremix
