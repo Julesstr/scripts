@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if pgrep -x "impala" > /dev/null; then
+    hyprctl dispatch focuswindow impala
+else
+    alacritty --title "impala" -e impala
+fi
