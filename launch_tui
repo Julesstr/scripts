@@ -1,9 +1,9 @@
 #!/bin/bash
 
 APP_NAME=$1
-
-if pgrep -x "$APP_NAME" > /dev/null; then
-    hyprctl dispatch focuswindow "$APP_NAME"
+echo "$APP_NAME"
+if pgrep -x "$APP_NAME" >/dev/null; then
+  hyprctl dispatch focuswindow "$APP_NAME"
 else
-    alacritty --title "$APP_NAME" -e "$APP_NAME"
+  alacritty --title "$APP_NAME" -e "$APP_NAME"
 fi
