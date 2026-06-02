@@ -1,0 +1,13 @@
+#!/bin/bash
+CACHE=/tmp/ddcutil_brightness
+if [ -f "$CACHE" ]; then
+    current=$(cat "$CACHE")
+else
+    current=$(ddcutil getvcp 10 --brief --sleep-multiplier 0.1 2>/dev/null | awk '{print $4}')
+    [ -z "$current" ] && { notify-send "Brightness" "Failed to read monitor brightness" -t 2000; exit 1; }
+fi
+new=$((current - 10))
+[ "$new" -lt 0 ] && new=0
+echo "$new" > "$CACHE"
+notify-send -h int:value:"$new" -h string:synchronous:brightness "Brightness" "${new}%" -t 1500
+~/scripts/brightness_worker &

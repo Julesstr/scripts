@@ -1,0 +1,12 @@
+#!/bin/bash
+CACHE=/tmp/ddcutil_brightness
+LOCK=/tmp/ddcutil_brightness.lock
+
+(
+  flock -n 9 || exit 0
+  while true; do
+    val=$(cat "$CACHE")
+    ddcutil setvcp 10 "$val" --noverify --sleep-multiplier 0.1 2>/dev/null
+    [ "$(cat "$CACHE")" = "$val" ] && break
+  done
+) 9>"$LOCK"
