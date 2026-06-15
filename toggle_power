@@ -1,0 +1,5 @@
+#!/bin/bash
+
+asusctl profile next
+current=$(asusctl profile get | awk -F': ' '{print $2}')
+notify-send "Asus Profile" "Switched to $current" -t 1500
